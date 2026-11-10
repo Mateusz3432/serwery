@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZelHost.pl — Profesjonalny Hosting Serwerów Minecraft</title>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #131b2e;
+            --card-hover: #1a243f;
+            --accent: #22c55e;
+            --accent-hover: #16a34a;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --border: #1e293b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        header {
+            background: rgba(19, 27, 46, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--text-main);
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 20px 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin: 40px 0 20px;
+            text-align: center;
+        }
+
+        /* Siatka ofert serwerów */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .price-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.2s, border-color 0.2s;
+            position: relative;
+        }
+
+        .price-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .price-card.popular {
+            border-color: var(--accent);
+        }
+
+        .badge-popular {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: #000;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 4px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .price-card h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .price-card .price {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--accent);
+            margin: 20px 0;
+        }
+
+        .price-card .price span {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: normal;
+        }
+
+        .specs-list {
+            list-style: none;
+            margin: 20px 0 30px;
+            text-align: left;
+        }
+
+        .specs-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .specs-list li span {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .btn {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 12px 20px;
+            width: 100%;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--accent-hover);
+            color: #fff;
+        }
+
+        /* Status serwerów publicznych */
+        .status-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        .server-card-status {
+            background: #0f172a;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 5px solid var(--accent);
+            border-top: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .server-card-status.offline {
+            border-left-color: #ef4444;
+        }
+
+        .server-info h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+        }
+
+        .server-info p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .status-indicator {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .online-text { color: var(--accent); }
+        .offline-text { color: #ef4444; }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            color: var(--text-muted);
+            font-size: 14px;
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">Zel<span>Host</span>.pl</a>
+        <nav>
+            <a href="#oferta">Oferta</a>
+            <a href="#status">Status Serwerów</a>
+            <a href="https://discord.gg/twojdiscord" target="_blank">Discord</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>Wydajny Hosting Serwerów Minecraft</h1>
+        <p>Wybierz niezawodny park maszynowy z procesorami wysokiej częstotliwości, niskimi pingami i pełną ochroną DDoS.</p>
+    </div>
+
+    <div class="container">
+        <h2 class="section-title" id="oferta">Wybierz pakiet dla siebie</h2>
+        
+        <div class="pricing-grid">
+            <!-- Pakiet 1 -->
+            <div class="price-card">
+                <h3>Start</h3>
+                <div class="price">15 zł <span>/ miesiąc</span></div>
+                <ul class="specs-list">
+                    <li>Pamięć RAM: <span>4 GB</span></li>
+                    <li>Wydajność CPU: <span>2 vCPU</span></li>
+                    <li>Dysk NVMe: <span>30 GB</span></li>
+                    <li>Ochrona DDoS: <span>Tak</span></li>
+                </ul>
+                <button class="btn" onclick="alert('Skontaktuj się z nami na Discordzie, aby zakupić pakiet Start!')">Wybierz pakiet</button>
+            </div>
+
+            <!-- Pakiet 2 (Popularny) -->
+            <div class="price-card popular">
+                <div class="badge-popular">Najczęściej wybierany</div>
+                <h3>Pro Gamer</h3>
+                <div class="price">35 zł <span>/ miesiąc</span></div>
+                <ul class="specs-list">
+                    <li>Pamięć RAM: <span>10 GB</span></li>
+                    <li>Wydajność CPU: <span>4 vCPU</span></li>
+                    <li>Dysk NVMe: <span>80 GB</span></li>
+                    <li>Ochrona DDoS: <span>Tak</span></li>
+                </ul>
+                <button class="btn" onclick="alert('Skontaktuj się z nami na Discordzie, aby zakupić pakiet Pro Gamer!')">Wybierz pakiet</button>
+            </div>
+
+            <!-- Pakiet 3 -->
+            <div class="price-card">
+                <h3>Ultra / Unlimited</h3>
+                <div class="price">70 zł <span>/ miesiąc</span></div>
+                <ul class="specs-list">
+                    <li>Pamięć RAM: <span>24 GB</span></li>
+                    <li>Wydajność CPU: <span>8 vCPU</span></li>
+                    <li>Dysk NVMe: <span>200 GB</span></li>
+                    <li>Ochrona DDoS: <span>Tak</span></li>
+                </ul>
+                <button class="btn" onclick="alert('Skontaktuj się z nami na Discordzie, aby zakupić pakiet Ultra!')">Wybierz pakiet</button>
+            </div>
+        </div>
+
+        <!-- Sekcja statusu na żywo -->
+        <div class="status-section" id="status">
+            <h2 class="section-title" style="margin-top: 0; text-align: left;">Status sieci ZelHost</h2>
+            <div id="servers-list">Ładowanie statusu serwerów...</div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 ZelHost.pl — Wszelkie prawa zastrzeżone.</p>
+    </footer>
+
+    <script>
+        // Tutaj wpisz adresy IP serwerów, których status chcesz pokazywać na żywo
+        const servers = [
+            "play.hypixel.net",
+            "mc.survival.pl"
+        ];
+
+        async function loadServers() {
+            const container = document.getElementById("servers-list");
+            container.innerHTML = "";
+
+            for (let ip of servers) {
+                try {
+                    let response = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
+                    let data = await response.json();
+
+                    let isOnline = data.online;
+                    let playersOnline = isOnline ? data.players.online : 0;
+                    let playersMax = isOnline ? data.players.max : 0;
+
+                    let card = document.createElement("div");
+                    card.className = `server-card-status ${isOnline ? '' : 'offline'}`;
+                    
+                    card.innerHTML = `
+                        <div class="server-info">
+                            <h4>${ip}</h4>
+                            <p>Gracze online: <b>${playersOnline} / ${playersMax}</b></p>
+                        </div>
+                        <div class="status-indicator">
+                            ${isOnline ? '<span class="online-text">● ONLINE</span>' : '<span class="offline-text">● OFFLINE</span>'}
+                        </div>
+                    `;
+                    container.appendChild(card);
+                } catch (e) {
+                    console.error("Błąd ładowania serwera", ip);
+                }
+            }
+        }
+
+        loadServers();
+        setInterval(loadServers, 60000);
+    </script>
+</body>
+</html>
